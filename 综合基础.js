@@ -215,7 +215,6 @@
 //   }
 // }
 
-
 // 七 ES6 promise 实现
 // const PENDING = 'PENDING'
 // const FULFILLED = 'FULFILLED'
@@ -251,7 +250,6 @@
 //   }
 // }
 
-
 // 八 原型 原型链
 // function Person(){
 // }
@@ -268,7 +266,18 @@
 // person2.sayName();    //"Nicholas"
 // console.log(person1.sayName == person2.sayName);  //true
 
-// 构造函数的prototype指向这个构造函数的原型对象
+
+// function fn() {} 等同于
+// var fn = function () {}
+// function () {} == new Function
+
+// fn || fn.__proto__ => Function.prototype || Function.prototype.__proto__ => Object.prototype || Object.prototype.__proto__ => null
+// Object.prototype.constructor => function Object() || function Object.__proto__ => Function.prototype
+
+
+// ===每个对象都有一个__proto__属性，指向创建该对象的函数的prototype===
+// ===构造函数的prototype和对象的__proto__都指向这个构造函数的原型对象====
+// ===Object原型对象的__proto指向null===
 // console.log(Person.prototype) 输出的是一个对象{name: "Nicholas", age: 29, job: "Software Engineer", sayName: ƒ, constructor: ƒ}
 // 原型对象的constructor又指回这个构造函数
 // console.log(Person.prototype.constructor) 输出的是构造函数本身
@@ -278,9 +287,41 @@
 // person1.name = "Greg"; console.log(person1.name) //'Greg' 实例属性中有就不必再搜索原型
 // person1.hasOwnProperty() 判断一个属性是存在于实例中还是原型中 如果存在于实例中返回true
 
-// constructor
+// 九 js继承 zepto案例
+// var zepto = {}
 
-// 九 js继承
+// var $ = function (selector) {
+//   return zepto.init(selector)
+// }
+
+// zepto.init = function(selector) {
+//   var slice = Array.prototype.clice
+//   var dom = slice.call(document.querySelectorAll(selector))
+//   return zepto.Z(dom, selector)
+// }
+
+// zepto.Z = function (dom, selector) {
+//   return new Z(dom, selector)
+// }
+
+// function Z(dom, selector) {
+//   var i, len = dom ? dom.length : 0;
+//   for (i = 0; i < len; i++) {
+//     this[i] = dom[i]
+//   }
+//   this.length = len 
+//   this.selector = selector || ''
+// }
+
+// window.$ = $
+
+// $.fn = {
+//   css: function () {
+//     alert('css')
+//   }
+// }
+
+// Z.prototype = $.fn
 
 // 十 进程和线程是什么？有什么区别？
 // 进程是CPU资源分配的最小单位
@@ -294,25 +335,18 @@
 // 定时器触发器线程 setInterval setTimeout 最小为4m
 // http请求线程 XMLHttpRequest在链接后通过浏览器新开一个线程请求 放入事件队列中
 
+// DOM 相关
+// dom事件  
+// dom0 =》 element.onclick = function() {}  dom2 => element.addEventListener('click', function(){}, false) dom3 => keyup mouseover mouseout
+// dom事件流 window => document => html => body => 目标element => body => html => document => window 
+// event对象常见的应用 event.preventDefault()=>阻止默认行为 event.stopPropagation()=>阻止冒泡 event.stoplmmediatePropagation() => 一个元素绑定多个事件 阻止后续事件触发
+// event.currentTarget => 绑定的元素对象 event.target => 触发事件的元素
+// 自定义事件 var even = new Event('custome') el.addEventListener('custome', function(){console.log('custome')}) el.dispatchEvent('custome')
 
-function SuperType(){
-  this.property = true;
-}
+// BOM 相关
 
-SuperType.prototype.getSuperValue = function() {
-  return this.property
-}
-
-function SubType() {
-  this.subproperty = false
-}
-
-SubType.prototype = new SuperType()
-
-SubType.prototype.getSubValue = function() {
-  return this.subproperty
-}
-
-var instance = new SubType();
-
-instance.getSuperValue()
+// 前端安全 
+// CSRF XSS 
+// CSRF（Cross-site request forgery）:跨站请求伪造。
+// 攻击原理:        防御方法: 1 token验证 请求头中携带token信息  2 referer
+// XSS: 1 通过url中参数传入服务器端 服务器端解析并执行后 传回给浏览器 最后浏览器解析xss代码  防御措施 编码转译 过滤dom相关的字节
