@@ -35,7 +35,7 @@
       left: 0;
       background: #d04379;
       background: linear-gradient(-120deg, #ffffff 130px, transparent 0) top right;
-      background-size: 100% 100%;
+      background-size: 100% 100%;                                                                                     
     }
 
     .wrapper .skew-r::after {
@@ -70,19 +70,17 @@
         'count': 1
       }
     },
+    watch: {
+      count: [function(){console.log('fn1')}, function(){console.log('fn2')}]
+    },
+    
     template: `<button v-on:click="count++">You clicked me {{ count }} times.</button>`
   })
-  debugger
   var vm = new Vue({
     el: '#app'
   })
 </script>
 <script>
-
-  window.addEventListener('DOMContentLoaded', function () {
-    console.log('DOMContentLoaded')
-  })
-
   // var rotate = function(nums, k) {
   //   if (!k || nums.length == 1) {
   //       return nums

@@ -110,3 +110,21 @@ var Event = (function () {
   }
 
 })();
+
+// 工厂模式 多态
+// var makeSound = function(people) {
+//   people.sound()
+// }
+
+// var Li = function() {}
+// Li.prototype.sound = function() {
+//   console.log('嘿  你好')
+// }
+
+// var Dan = function() {}
+// Dan.prototype.sound = function() {
+//   console.log('吃早饭了吗')
+// }
+
+// makeSound(new Li())
+// makeSound(new Dan())

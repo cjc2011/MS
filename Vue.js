@@ -753,6 +753,7 @@
   var targetStack = [];
 
   function pushTarget (target) {
+    // target == Watch对象
     targetStack.push(target);
     Dep.target = target;
   }
@@ -1019,7 +1020,7 @@
     shallow
   ) {
     var dep = new Dep();
-
+    // 获取data中某一个key值的PropertyDescriptor { configurable: true, enumerable: true,value: 42,writable: true}
     var property = Object.getOwnPropertyDescriptor(obj, key);
     if (property && property.configurable === false) {
       return
@@ -1031,7 +1032,7 @@
     if ((!getter || setter) && arguments.length === 2) {
       val = obj[key];
     }
-
+    // writable 值是否可改变  enumerable 是否可枚举 configurable  是否可修改配置项                  
     var childOb = !shallow && observe(val);
     Object.defineProperty(obj, key, {
       enumerable: true,
@@ -4752,12 +4753,16 @@
 
   function initComputed (vm, computed) {
     // $flow-disable-line
+    // 创建一个watcher对象 并绑定到vm对象上
     var watchers = vm._computedWatchers = Object.create(null);
     // computed properties are just getters during SSR
+    // 判断是不是服务端渲染
     var isSSR = isServerRendering();
 
+    // bian遍历computed对象
     for (var key in computed) {
       var userDef = computed[key];
+      // 容错处理
       var getter = typeof userDef === 'function' ? userDef : userDef.get;
       if (getter == null) {
         warn(
@@ -4780,8 +4785,10 @@
       // component prototype. We only need to define computed properties defined
       // at instantiation here.
       if (!(key in vm)) {
+        // 生成Computed userDef对应的是计算数据的具体函数 
         defineComputed(vm, key, userDef);
       } else {
+        // 如果Computed的key和vm中的data或者prop重名警告⚠️
         if (key in vm.$data) {
           warn(("The computed property \"" + key + "\" is already defined in data."), vm);
         } else if (vm.$options.props && key in vm.$options.props) {
@@ -4937,6 +4944,7 @@
       options = options || {};
       options.user = true;
       var watcher = new Watcher(vm, expOrFn, cb, options);
+      // 如果watch的immediate为true再初始化data时会触发一次watch事件
       if (options.immediate) {
         try {
           cb.call(vm, watcher.value);
@@ -5033,7 +5041,7 @@
 
   function resolveConstructorOptions (Ctor) {
     var options = Ctor.options;
-    // 根据super判断是否是Vue.extend创建
+    // 根据super判断是否是Vue.extend
     if (Ctor.super) {
       var superOptions = resolveConstructorOptions(Ctor.super);
       var cachedSuperOptions = Ctor.superOptions;
