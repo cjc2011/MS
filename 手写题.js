@@ -97,7 +97,7 @@ function Promise_(fn) {
   that.value = undefined                 //.then接收的value值
   that.reason = undefined                //失败的原因值
   that.onFulfilledCallbacks = []         //存储resolve时的回调函数
-  that.onRejectCallbacks = []
+  that.onRejectCallbacks = []            //存储reject时的回调函数
 
   function resolve(val) {
     if (val instanceof Promise_) {
@@ -132,4 +132,10 @@ function Promise_(fn) {
   } catch (error) {
     reject(error)
   }
+}
+
+Promise_.prototype.then = function(onFulfilled, onRejected) {
+  typeof onFulfilled === 'function' && this.onFulfilledCallbacks.push(onFulfilled)
+  typeof onRejected === 'function' && this.onRejectCallbacks.push(onRejected)
+  return this
 }
