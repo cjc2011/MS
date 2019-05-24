@@ -86,3 +86,50 @@
 
 // Person('Jerry').sleepFirst(10).sayName('cjc').sleep(3).eat('supper')
 
+// Promise 
+const PENDING = 'pending'
+const FULFILLED = 'fulfilled'
+const REJECTED = 'rejected'
+
+function Promise_(fn) {
+  let that = this 
+  that.status = PENDING                  //初始化状态
+  that.value = undefined                 //.then接收的value值
+  that.reason = undefined                //失败的原因值
+  that.onFulfilledCallbacks = []         //存储resolve时的回调函数
+  that.onRejectCallbacks = []
+
+  function resolve(val) {
+    if (val instanceof Promise_) {
+      return val.then(resolve, reject)
+    }
+
+    setTimeout( () => {
+      if (that.status === PENDING) {
+        this.status = FULFILLED
+        this.value = val 
+        this.onFulfilledCallbacks.forEach( (cb) => {
+          cb(that.value)
+        })
+      }
+    });
+  }
+
+  function reject(reason) {
+    setTimeout( () => {
+      if (that.status === PENDING) {
+        this.status = REJECTED
+        this.reason = reason
+        this.onRejectCallbacks.forEach( (cb) => {
+          cb(that.reason)
+        })
+      }
+    })
+  }
+
+  try {
+    fn(resolve, reject)
+  } catch (error) {
+    reject(error)
+  }
+}
