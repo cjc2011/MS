@@ -13,17 +13,22 @@
 // http利用Expires和cache-control控制 当浏览器发出请求时 浏览器会根据这两个字段判断资源是否命中强缓存
 // expires 是一个时间戳 浏览器再次去请求资源时会对比本地时间和expires的时间戳 如果小于直接从缓存中取(expires依赖本地时间 如果时间设置错误 exipres会无法达到预期效果)
 // Cache-Control 可以理解为expires的替代方案 设置一个范围值 max-age=31536000 如果该资源在31536000秒内再次请求会从缓存中取
-// Cache-Control 的其他值 
-// s-maxage比max-age优先级要高  s-maxage仅在代理服务器中
-// public与private public既可以被浏览器缓存也可以被代理服务器缓存 需要手动设置; private 默认值 只能被浏览器缓存
-// no-store 是真正意义上不进行缓存 no-cache 的目的是防止从缓存中取到过期资源
-// expires和cache-control同时存在时 cache-control优先级更高 expires为向下兼容方案
+// Cache-Control 的其他值: 
+  // s-maxage比max-age优先级要高  s-maxage仅在代理服务器中
+  // public与private public既可以被浏览器缓存也可以被代理服务器缓存 需要手动设置; private 默认值 只能被浏览器缓存
+  // no-store 是真正意义上不进行缓存 
+  // no-cache 的目的是防止从缓存中取到过期资源
+  // expires和cache-control同时存在时 cache-control优先级更高 expires为向下兼容方案
 
 // 二 协商缓存 
 // Last-Modified 是一个时间戳 如果启用了协商缓存它会在首次请求时随着response header返回  后续每次请求都会携带last-Modified与服务器伤的最后修改时间进行对比 
 // 如果有变化就返回新的资源 没有变化就返回304 
 // Last-Modified的一些弊端 有些情况下不能感知到文件内部的变化 这时候需要Etag 
 // Etag在感知文件变化时会更加准确 但是会影响服务器的性能 
+
+//缓存流程 
+
+
 
 // CDN 
 // CDN主要用来存放静态资源(比如 css js 图片 ) 非静态资源一般是指(jsp asp这类后端渲染的页面) 当用户访问量大 带宽小时会优先选择就近的机房进行数据请求 CDN的两个主要特点 缓存 回源

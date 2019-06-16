@@ -145,7 +145,7 @@
 // };
 // obj1.obj2.foo(); 
 
-// 隐氏绑定this绑定丢失
+// 隐式绑定this绑定丢失
 // function foo() { 
 //   console.log( this.a );
 // }
