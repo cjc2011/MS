@@ -1,655 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .wrapper {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    .wrapper {
-      display: flex;
-      align-content: center;
-      justify-content: center;
-    }
+      .wrapper > div {
+        display: inline-block;
+        height: 255px;
+        width: 400px;
+        background: #58a;
+        position: relative;
+      }
 
-    .wrapper>div {
-      display: inline-block;
-      height: 255px;
-      width: 400px;
-      background: #58a;
-      position: relative;
-    }
+      .wrapper img {
+        max-width: 100%;
+      }
 
-    .wrapper img {
-      max-width: 100%;
-    }
+      .wrapper .skew-l::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #d04379;
+        background: linear-gradient(-120deg, #ffffff 130px, transparent 0) top
+          right;
+        background-size: 100% 100%;
+      }
 
-    .wrapper .skew-l::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: #d04379;
-      background: linear-gradient(-120deg, #ffffff 130px, transparent 0) top right;
-      background-size: 100% 100%;                                                                                     
-    }
+      .wrapper .skew-r::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #d04379;
+        background: linear-gradient(60deg, #ffffff 130px, transparent 0) bottom
+          left;
+        background-size: 100% 100%;
+      }
+    </style>
+  </head>
 
-    .wrapper .skew-r::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: #d04379;
-      background: linear-gradient(60deg, #ffffff 130px, transparent 0)bottom left;
-      background-size: 100% 100%;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="app">
+  <body>
+    <div id="app">
       <btn></btn>
-  </div>
-</body>
-<script src="./Vue.js"></script>
-<script>
-  Vue.component('btn', {
-    name: 'btn',
-    create() {
-      console.log('create')
-    },
-    data: function() {
+    </div>
+  </body>
+  <script src="./Vue.js"></script>
+  <script>
+    Vue.component("btn", {
+      name: "btn",
+      create() {
+        console.log("create");
+      },
+      data: function() {
+        return {
+          count: 1
+        };
+      },
+      watch: {
+        count: [
+          function() {
+            console.log("fn1");
+          },
+          function() {
+            console.log("fn2");
+          }
+        ]
+      },
+
+      template: `<button v-on:click="count++">You clicked me {{ count }} times.</button>`
+    });
+    var vm = new Vue({
+      el: "#app"
+    });
+  </script>
+  <script>
+    // var rotate = function(nums, k) {
+    //   if (!k || nums.length == 1) {
+    //       return nums
+    //   };
+    //   var arr = nums
+    //   var index = arr.length - k;
+    //   var result = nums.splice(index);
+    //   var newArr = result.concat(arr);
+    //   console.log(newArr)
+    //   return newArr
+    // };
+
+    // var rotate = function(nums, k) {
+    //   if (!k || nums.length == 1) {
+    //       return nums
+    //   }
+    //   var tem = []
+    //   for (var i = 0; i < k; i++) {
+    //       tem.unshift(nums.pop())
+    //   }
+    //   tem = tem.concat(nums)
+    //   return tem
+    // };
+    // var rotate = function(nums, k) {
+    //   if (!k || nums.length == 1) {
+    //       return nums
+    //   };
+    //   var index = nums.length - k;
+    //   var popArr = nums.splice(index)
+    //   popArr.forEach( item => {
+    //     nums.unshift(item)
+    //   });
+    // };
+
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    // var removeDuplicates = function(nums) {
+    //   nums.sort()
+    //   for (var i = 0; i < nums.length; i++ ) {
+    //     for ( var j = i+1; j < nums.length; j++) {
+    //       if (nums[i] == nums[j]) {
+    //         nums.splice(j, 1)
+    //         j--
+    //       }
+    //     }
+    //   }
+    //   nums.sort( (a,b) =>  a-b)
+    //   console.log(nums, 'nums')
+    // };
+
+    // var plusOne = function(digits) {
+    //   if (digits.length > 16) {
+    //   } else {
+    //     var num = Number(digits.join('') + '')
+    //     num++
+    //     var result = (num + '').split('').map(Number)
+    //   }
+    //   return result
+    // };
+
+    // for (var i = 0; i < len + 1; i++) {
+    //   for (var j = 0; j < len - i; j++) {
+    //     let tem = arr[i][j]
+    //     arr[i][j] = arr[len-j-1][len-i-1]
+    //     arr[len-j-1][len-i-1] = tem
+    //   }
+    // }
+
+    /**
+     * @param {number[]} nums1
+     * @param {number[]} nums2
+     * @return {number[]}
+     */
+    // var intersect = function(nums1, nums2) {
+    //   let result = []
+    //   for (var i = 0; i < nums1.length; i++) {
+    //     let current = nums1[i]
+    //     let index = nums2.indexOf(current)
+    //     if (index > -1) {
+    //       result.push(current)
+    //       let j = i
+    //       let k = index
+    //       while (j !== null) {
+    //         k++
+    //         j++
+    //         if (nums1[j] && nums1[j] == nums2[k]) {
+    //           result.push(nums1[j])
+    //         } else {
+    //           j = null
+    //         }
+    //       }
+    //       break
+    //     }
+    //   }
+    //   return result
+    // };
+    // intersect([1], [1])
+
+    /**
+     * @param {number} x
+     * @return {number}
+     */
+    // var reverse = function(x) {
+    //     if ( x == 0 ) return x
+    //     var MAX = Math.pow(2,31) - 1
+    //     var MIN = Math.pow(-2,31)
+    //     var zero = x > 0
+    //     var str = Math.abs(x).toString()
+    //     str = str.split('').reverse().join('')
+    //     var num = zero ? Number(str) : -Number(str)
+    //     return num >= MIN && num <= MAX ? num : 0
+    // };
+    // reverse(-123)
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    // var firstUniqChar = function(s) {
+    //   for (var i = 0; i < s.length; i++) {
+    //     let char = s[i]
+    //     if (s.indexOf(char) > -1 == s.lastIndexOf(char) > -1) {
+    //       return i
+    //     }
+    //   }
+    //   return -1
+    // };
+
+    /**
+     * @param {string} s
+     * @param {string} t
+     * @return {boolean}
+     */
+    // var isAnagram = function(s, t) {
+    //     let tArr = t.split('')
+    //     let sArr = s.split('')
+    //     if (tArr.length != sArr.length) {
+    //       return false
+    //     }
+    //     let result = tArr.every( item => {
+    //       let index = sArr.indexOf(item)
+    //       if (index > -1) {
+    //         return sArr.splice(index, 1)
+    //       } else {
+    //         return false
+    //       }
+    //     })
+    //     return result
+    // };
+
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    // var isPalindrome = function(s) {
+    //   var sArr = s.split('').filter( item => {
+    //     return /[a-zA-Z0-9]/.test(item)
+    //   })
+    //   let str = sArr.toString().toLowerCase()
+    //   let reverseStr = sArr.reverse().toString().toLowerCase()
+    //   if (str == reverseStr) {
+    //     return true
+    //   }
+    //   return false
+    // };
+
+    /**
+     * @param {string} str
+     * @return {number}
+     */
+    // var myAtoi = function(str) {
+    //     let str = str.trim()
+    //     let frist = str.char
+    // };
+
+    // isPalindrome("0P")
+
+    /**
+     * 二叉树
+     *
+     *
+     */
+    function Node(data, left, right) {
+      this.data = data;
+      this.left = left;
+      this.right = right;
+      this.show = show;
+    }
+    function show() {
+      return this.data;
+    }
+    function BST() {
+      this.root = null;
+      this.insert = insert;
+      this.inOrder = inOrder;
+    }
+    // 插入节点
+    function insert(data) {
+      var n = new Node(data, null, null);
+      if (this.root == null) {
+        this.root = n;
+      } else {
+        var current = this.root;
+        var parent;
+        while (true) {
+          parent = current;
+          if (data < current.data) {
+            current = current.left;
+            if (current == null) {
+              parent.left = n;
+              break;
+            }
+          } else {
+            current = current.right;
+            if (current == null) {
+              parent.right = n;
+              break;
+            }
+          }
+        }
+      }
+    }
+    // 中序遍历
+    function inOrder(node) {
+      if (!(node == null)) {
+        inOrder(node.left);
+        inOrder(node.right);
+      }
+    }
+
+    var nums = new BST();
+    nums.insert(23);
+    nums.insert(45);
+    nums.insert(16);
+    nums.insert(37);
+    nums.insert(3);
+    nums.insert(99);
+    nums.insert(22);
+    inOrder(nums.root);
+
+    function curry(fn, currArgs) {
+      return function() {
+        let args = [].slice.call(arguments);
+        // 首次调用时，若未提供最后一个参数currArgs，则不用进行args的拼接
+        if (currArgs !== undefined) {
+          args = args.concat(currArgs);
+        }
+        // 递归调用
+        if (args.length < fn.length) {
+          return curry(fn, args);
+        }
+        // 递归出口
+        return fn.apply(null, args);
+      };
+    }
+
+    function sum(a, b, c) {
+      console.log(a + b + c);
+    }
+
+    curry();
+
+    // 自定义模块
+    var MyModules = (function Manager() {
+      var modules = {};
+      function define(name, deps, impl) {
+        for (var i = 0; i < deps.length; i++) {
+          deps[i] = modules[deps[i]];
+        }
+        modules[name] = impl.apply(impl, deps);
+      }
+      function get(name) {
+        return modules[name];
+      }
       return {
-        'count': 1
+        define: define,
+        get: get
+      };
+    })();
+    // 定义bar模块
+    MyModules.define("bar", [], function() {
+      var bardata = "testdata";
+      function hello(who) {
+        return "Let me introduce: " + bardata;
       }
-    },
-    watch: {
-      count: [function(){console.log('fn1')}, function(){console.log('fn2')}]
-    },
-    
-    template: `<button v-on:click="count++">You clicked me {{ count }} times.</button>`
-  })
-  var vm = new Vue({
-    el: '#app'
-  })
-</script>
-<script>
-  // var rotate = function(nums, k) {
-  //   if (!k || nums.length == 1) {
-  //       return nums
-  //   };
-  //   var arr = nums
-  //   var index = arr.length - k;
-  //   var result = nums.splice(index);
-  //   var newArr = result.concat(arr);
-  //   console.log(newArr)
-  //   return newArr 
-  // };
+      return {
+        hello: hello
+      };
+    });
 
-  // var rotate = function(nums, k) {
-  //   if (!k || nums.length == 1) {
-  //       return nums
-  //   }
-  //   var tem = [] 
-  //   for (var i = 0; i < k; i++) {
-  //       tem.unshift(nums.pop())
-  //   }
-  //   tem = tem.concat(nums)
-  //   return tem
-  // };
-  // var rotate = function(nums, k) {
-  //   if (!k || nums.length == 1) {
-  //       return nums
-  //   };
-  //   var index = nums.length - k;
-  //   var popArr = nums.splice(index)
-  //   popArr.forEach( item => {
-  //     nums.unshift(item)
-  //   });
-  // };
+    MyModules.define("foo", ["bar"], function(bar) {
+      var hungry = "hippo";
+      function awesome() {
+        console.log(bar.hello(hungry).toUpperCase());
+      }
+      return {
+        awesome: awesome
+      };
+    });
 
-  /**
-  * @param {number[]} nums
-  * @return {number}
-  */
-  // var removeDuplicates = function(nums) {
-  //   nums.sort()
-  //   for (var i = 0; i < nums.length; i++ ) {
-  //     for ( var j = i+1; j < nums.length; j++) {
-  //       if (nums[i] == nums[j]) {
-  //         nums.splice(j, 1)
-  //         j--
-  //       }
-  //     }
-  //   }
-  //   nums.sort( (a,b) =>  a-b)
-  //   console.log(nums, 'nums')
-  // };
-
-  // var plusOne = function(digits) {
-  //   if (digits.length > 16) {
-  //   } else {
-  //     var num = Number(digits.join('') + '')
-  //     num++
-  //     var result = (num + '').split('').map(Number)
-  //   }
-  //   return result
-  // };
-
-  // for (var i = 0; i < len + 1; i++) {
-  //   for (var j = 0; j < len - i; j++) {
-  //     let tem = arr[i][j]
-  //     arr[i][j] = arr[len-j-1][len-i-1]
-  //     arr[len-j-1][len-i-1] = tem
-  //   }
-  // }
-
-  /**
-  * @param {number[]} nums1
-  * @param {number[]} nums2
-  * @return {number[]}
-  */
-  // var intersect = function(nums1, nums2) {
-  //   let result = []
-  //   for (var i = 0; i < nums1.length; i++) {
-  //     let current = nums1[i]
-  //     let index = nums2.indexOf(current)
-  //     if (index > -1) {
-  //       result.push(current)
-  //       let j = i
-  //       let k = index
-  //       while (j !== null) {
-  //         k++
-  //         j++
-  //         if (nums1[j] && nums1[j] == nums2[k]) {
-  //           result.push(nums1[j])
-  //         } else {
-  //           j = null
-  //         }
-  //       }
-  //       break
-  //     }
-  //   }
-  //   return result
-  // };
-  // intersect([1], [1])
-
-  /**
-  * @param {number} x
-  * @return {number}
-  */
-  // var reverse = function(x) {
-  //     if ( x == 0 ) return x
-  //     var MAX = Math.pow(2,31) - 1 
-  //     var MIN = Math.pow(-2,31)
-  //     var zero = x > 0
-  //     var str = Math.abs(x).toString()
-  //     str = str.split('').reverse().join('')
-  //     var num = zero ? Number(str) : -Number(str)
-  //     return num >= MIN && num <= MAX ? num : 0
-  // };
-  // reverse(-123)
-
-  /**
-  * @param {string} s
-  * @return {number}
-  */
-  // var firstUniqChar = function(s) {
-  //   for (var i = 0; i < s.length; i++) {
-  //     let char = s[i]
-  //     if (s.indexOf(char) > -1 == s.lastIndexOf(char) > -1) {
-  //       return i
-  //     }
-  //   }
-  //   return -1
-  // };
-
-  /**
-  * @param {string} s
-  * @param {string} t
-  * @return {boolean}
-  */
-  // var isAnagram = function(s, t) {
-  //     let tArr = t.split('')
-  //     let sArr = s.split('')
-  //     if (tArr.length != sArr.length) {
-  //       return false
-  //     }
-  //     let result = tArr.every( item => {
-  //       let index = sArr.indexOf(item)
-  //       if (index > -1) {
-  //         return sArr.splice(index, 1)
-  //       } else {
-  //         return false
-  //       }
-  //     })
-  //     return result
-  // };
-
-  /**
-  * @param {string} s
-  * @return {boolean}
-  */
-  // var isPalindrome = function(s) {
-  //   var sArr = s.split('').filter( item => {
-  //     return /[a-zA-Z0-9]/.test(item)
-  //   })
-  //   let str = sArr.toString().toLowerCase()
-  //   let reverseStr = sArr.reverse().toString().toLowerCase()
-  //   if (str == reverseStr) {
-  //     return true
-  //   }
-  //   return false
-  // };
-
-  /**
-  * @param {string} str
-  * @return {number}
-  */
-  // var myAtoi = function(str) {
-  //     let str = str.trim()
-  //     let frist = str.char
-  // };
-
-  // isPalindrome("0P")
-
-  /**
-   * 二叉树
-   * 
-   * 
-  */
-  function Node(data, left, right) {
-    this.data = data;
-    this.left = left;
-    this.right = right;
-    this.show = show;
-  }
-  function show() {
-    return this.data;
-  }
-  function BST() {
-    this.root = null;
-    this.insert = insert;
-    this.inOrder = inOrder;
-  }
-  // 插入节点
-  function insert(data) {
-    var n = new Node(data, null, null);
-    if (this.root == null) {
-      this.root = n;
-    }
-    else {
-      var current = this.root;
-      var parent;
-      while (true) {
-        parent = current;
-        if (data < current.data) {
-          current = current.left;
-          if (current == null) {
-            parent.left = n;
-            break;
-          }
+    var modules = (function() {
+      var modules = {};
+      function define(name, devs, fn) {
+        // 获取依赖
+        for (var i = 0; i < devs.length; i++) {
+          devs[i] = modules[devs[i]];
         }
-        else {
-          current = current.right;
-          if (current == null) {
-            parent.right = n;
-            break;
-          }
+        // 模块赋值
+        modules[name] = fn.apply(fn, devs);
+      }
+      function get(name) {
+        return modules[name];
+      }
+      return {
+        define: define,
+        get: get
+      };
+    })();
+
+    modules.define("bar", [], function() {
+      function t() {
+        return "bar sss";
+      }
+      return {
+        t: t
+      };
+    });
+
+    var a = modules.get("bar");
+
+    // 创建Person构造函数，参数为name,age
+    function Person(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+
+    Person.prototype.getName = function() {
+      return this.name;
+    };
+
+    function _new() {
+      //1.拿到传入的参数中的第一个参数，即构造函数名Func
+      var Func = [].shift.call(arguments);
+      //2.创建一个空对象obj,并让其继承Func.prototype
+      var obj = Object.create(Func.prototype);
+      //3.执行构造函数，并将this指向创建的空对象obj
+      Func.apply(obj, arguments);
+      //4.返回创建的对象obj
+      return obj;
+    }
+
+    var xm = _new(Person, "xiaoming", 18);
+
+    function bind(fn, obj) {
+      return function() {
+        fn.apply(obj, arguments);
+      };
+    }
+
+    function debunce(fn) {
+      let timer = null;
+      return function() {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn(this, arguments);
+        }, 500);
+      };
+    }
+
+    // 简单实现，参数只能从右到左传递
+    function createCurry(func, args) {
+      var arity = func.length;
+      var args = args || [];
+      return function() {
+        var _args = [].slice.call(arguments);
+        [].push.apply(_args, args);
+        // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+        if (_args.length < arity) {
+          return createCurry.call(this, func, _args);
+        }
+        // 参数收集完毕，则执行func
+        return func.apply(this, _args);
+      };
+    }
+
+    // var add = function (m) {
+    //   var temp = function (n) {
+    //     return add(m + n);
+    //   }
+    //   temp.toString = function () {
+    //     return m;
+    //   }
+    //   return temp;
+    // };
+
+    //   function add() {
+    //     var args = [].slice.call(arguments)
+    //     var next = function () {
+    //       var inner_arg = [].slice.call(arguments)
+    //       return add.call(null, args.concat(inner_arg))
+    //     }
+    //     next.toString = function () {
+    //       return args + '////'
+    //     }
+    //     return next
+    //   }
+    //   var a = 1
+
+    //   function add1(resolve, reject) {
+    //     setTimeout(() => {
+    //       console.log('add1')
+    //       resolve(a += 1)
+    //     }, 1000)
+    //   }
+
+    //   function add2(resolve, reject) {
+    //     setTimeout(() => {
+    //       console.log('add2')
+    //       resolve(a += 1)
+    //     }, 1000)
+    //   }
+
+    //   function add3(resolve, reject) {
+    //     setTimeout(() => {
+    //       console.log('add3')
+    //       resolve(a += 1)
+    //     })
+    //   }
+
+    //   // new Promise(add1).then( (res) => {
+    //   //   console.log(res, '///')
+    //   //   return new Promise(add2)
+    //   // }).then( res => {
+    //   //   console.log(res, '====')
+    //   // })
+    //   // console.log(add(1, 2, 3)(2)(4), 'test')
+    //   var a = 2;
+    //   function maxPrice(arr) {
+    //     var toal = 0
+    //     var pre = -1
+    //     for (var i = 0; i < arr.length; i++) {
+    //       if (pre !== -1 && arr[i] > pre) {
+    //         toal += arr[i] - pre
+    //       }
+    //       pre = arr[i]
+    //     }
+    //     return toal
+    //   }
+    //   console.log(maxPrice([1,2,3,4,5,6,6,7]))
+    //   var obj = {
+    //     name: 'cjc'
+    //   }
+
+    //   var obj2 = Object.create(null)
+
+    //   function inherit() {
+    //     if ( p == null) {
+    //       throw TypeError()
+    //     }
+    //     if (Object.create) {
+    //       return Object.create(p)
+    //     }
+    //     var t = typeof p
+    //     if (t !== 'object' && t !== 'function') {
+    //       throw TypeError()
+    //     }
+    //     function f() {
+    //     }
+    //     f.prototype = p
+    //     return new f()
+    //   }
+
+    //   var book = {
+    //   }
+
+    //   Object.defineProperties(book, {
+    //     _year: {
+    //       value: 2004
+    //     },
+    //     edition: {
+    //       value: 1
+    //     },
+    //     year: {
+    //       get: function() {
+    //         return this._year
+    //       },
+    //       set: function(newVlaue) {
+    //         if (newVlaue > 2004) {
+    //           this._year = newVlaue
+    //           this.edition += newVlaue - 2004
+    //         }
+    //         this.edition = 4
+    //       }
+    //     }
+    //   })
+
+    //   book.year = 2006
+
+    // var Event = (function () {
+    //   var clientList = {},
+    //     listen,
+    //     trigger,
+    //     remove;
+    //   listen = function (key, fn) {
+    //     if (!clientList[key]) {
+    //       clientList[key] = [];
+    //     }
+    //     clientList[key].push(fn);
+    //   };
+    //   trigger = function () {
+    //     var key = Array.prototype.shift.call(arguments),
+    //       fns = clientList[key];
+    //     if (!fns || fns.length === 0) {
+    //       return false;
+    //     }
+    //     for (var i = 0, fn; fn = fns[i++];) {
+    //       fn.apply(this, arguments);
+    //     }
+    //   };
+    //   remove = function (key, fn) {
+    //     var fns = clientList[key];
+    //     if (!fns) {
+    //       return false;
+    //     }
+    //     if (!fn) {
+    //       fns && (fns.length = 0);
+    //     } else {
+    //       for (var l = fns.length - 1; l >= 0; l--) {
+    //         var _fn = fns[l]; if (_fn === fn) {
+    //           fns.splice(l, 1);
+    //         }
+    //       }
+    //     }
+    //   };
+    //   return {
+    //     listen: listen,
+    //     trigger: trigger,
+    //     remove: remove
+    //   }
+    // })();
+    class Model1 {
+      getData() {
+        // 此处省略获取数据的逻辑
+        let start = new Date().valueOf();
+        try {
+          return [
+            {
+              id: 1,
+              name: "Niko"
+            },
+            {
+              id: 2,
+              name: "Bellic"
+            }
+          ];
+        } finally {
+          let end = new Date().valueOf();
+          console.log(`start: ${start} end: ${end} consume: ${end - start}`);
         }
       }
     }
-  }
-  // 中序遍历
-  function inOrder(node) {
-    if (!(node == null)) {
-      inOrder(node.left);
-      inOrder(node.right);
-    }
-  }
+    const t = "1231321";
+    console.log(new Model1().getData()); // [ { id: 1, name: 'Niko'}, { id: 2, name: 'Bellic' } ]
+    console.log(Model1.prototype.getData());
 
-
-  var nums = new BST();
-  nums.insert(23);
-  nums.insert(45);
-  nums.insert(16);
-  nums.insert(37);
-  nums.insert(3);
-  nums.insert(99);
-  nums.insert(22);
-  inOrder(nums.root);
-
-  function curry(fn, currArgs) {
-    return function () {
-      let args = [].slice.call(arguments);
-      // 首次调用时，若未提供最后一个参数currArgs，则不用进行args的拼接
-      if (currArgs !== undefined) {
-        args = args.concat(currArgs);
+    var dat = [
+      {
+        id: 1,
+        name: "gz",
+        children: [
+          {
+            id: 11,
+            name: "sz",
+            children: [
+              {
+                id: 111,
+                name: "sz"
+              },
+              {
+                id: 112
+              }
+            ]
+          }
+        ]
       }
-      // 递归调用
-      if (args.length < fn.length) {
-        return curry(fn, args);
+    ];
+
+    function currying(fn, length) {
+      length = length || fn.length; 	// 注释 1
+      return function (...args) {			// 注释 2
+        return args.length >= length	// 注释 3
+          ? fn.apply(this, args)			// 注释 4
+          : currying(fn.bind(this, ...args), length - args.length) // 注释 5
       }
-      // 递归出口
-      return fn.apply(null, args);
     }
-  }
 
-  function sum(a, b, c) {
-    console.log(a + b + c);
-  }
 
-  curry()
 
-  // 自定义模块
-  var MyModules = (function Manager() {
-    var modules = {};
-    function define(name, deps, impl) {
-      for (var i = 0; i < deps.length; i++) {
-        deps[i] = modules[deps[i]];
-      }
-      modules[name] = impl.apply(impl, deps);
+
+    function isHttps(url) {
+      return url.indexOf('https://') > -1 ? true : false
     }
-    function get(name) {
-      return modules[name];
+
+    function isHttps(url) {
+      var re = /^https?:\/\//i;
+      return re.test(url)
     }
-    return {
-      define: define,
-      get: get
-    };
-  })();
-  // 定义bar模块
-  MyModules.define("bar", [], function () {
-    var bardata = 'testdata'
-    function hello(who) {
-      return "Let me introduce: " + bardata;
+
+    function isHttps(url) {
+      let urlArray = url.split('://')
+      return urlArray[0] === 'https'
     }
-    return {
-      hello: hello
-    };
-  });
 
-  MyModules.define("foo", ["bar"], function (bar) {
-    var hungry = "hippo";
-    function awesome() {
-      console.log(bar.hello(hungry).toUpperCase());
+    function isObject(obj){
+      return obj && obj.constructor === Object
     }
-    return {
-      awesome: awesome
-    };
-  });
 
-
-  var modules = (function () {
-    var modules = {}
-    function define(name, devs, fn) {
-      // 获取依赖
-      for (var i = 0; i < devs.length; i++) {
-        devs[i] = modules[devs[i]]
-      }
-      // 模块赋值
-      modules[name] = fn.apply(fn, devs)
+    function isArray(obj) {
+      return obj && obj.constructor === Array
     }
-    function get(name) {
-      return modules[name]
+
+    function fn(x) {
+      return isArray(x)
     }
-    return {
-      define: define,
-      get: get
+
+    function test(y) {
+      return isObject(y)
     }
-  })()
 
-  modules.define('bar', [], function () {
-    function t() {
-      return 'bar sss'
-    }
-    return {
-      t: t
-    }
-  })
-
-  var a = modules.get('bar')
-
-  // 创建Person构造函数，参数为name,age
-  function Person(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-
-  Person.prototype.getName = function () {
-    return this.name
-  }
-
-  function _new() {
-    //1.拿到传入的参数中的第一个参数，即构造函数名Func
-    var Func = [].shift.call(arguments);
-    //2.创建一个空对象obj,并让其继承Func.prototype
-    var obj = Object.create(Func.prototype);
-    //3.执行构造函数，并将this指向创建的空对象obj
-    Func.apply(obj, arguments)
-    //4.返回创建的对象obj
-    return obj
-  }
-
-  var xm = _new(Person, 'xiaoming', 18);
-
-  function bind(fn, obj) {
-    return function () {
-      fn.apply(obj, arguments);
-    };
-  }
-
-  function debunce(fn) {
-    let timer = null
-    return function () {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        fn(this, arguments)
-      }, 500)
-    }
-  }
-
-  // 简单实现，参数只能从右到左传递
-  function createCurry(func, args) {
-    var arity = func.length;
-    var args = args || [];
-    return function () {
-      var _args = [].slice.call(arguments);
-      [].push.apply(_args, args);
-      // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
-      if (_args.length < arity) {
-        return createCurry.call(this, func, _args);
-      }
-      // 参数收集完毕，则执行func
-      return func.apply(this, _args);
-    }
-  }
-
-  // var add = function (m) {
-  //   var temp = function (n) {
-  //     return add(m + n);
-  //   }
-  //   temp.toString = function () {
-  //     return m;
-  //   }
-  //   return temp;
-  // };
-
-  //   function add() {
-  //     var args = [].slice.call(arguments)
-  //     var next = function () {
-  //       var inner_arg = [].slice.call(arguments)
-  //       return add.call(null, args.concat(inner_arg))
-  //     }
-  //     next.toString = function () {
-  //       return args + '////'
-  //     }
-  //     return next
-  //   }
-  //   var a = 1
-
-  //   function add1(resolve, reject) {
-  //     setTimeout(() => {
-  //       console.log('add1')
-  //       resolve(a += 1)
-  //     }, 1000)
-  //   }
-
-  //   function add2(resolve, reject) {
-  //     setTimeout(() => {
-  //       console.log('add2')
-  //       resolve(a += 1)
-  //     }, 1000)
-  //   }
-
-  //   function add3(resolve, reject) {
-  //     setTimeout(() => {
-  //       console.log('add3')
-  //       resolve(a += 1)
-  //     })
-  //   }
-
-  //   // new Promise(add1).then( (res) => {
-  //   //   console.log(res, '///')
-  //   //   return new Promise(add2)
-  //   // }).then( res => {
-  //   //   console.log(res, '====')
-  //   // })
-  //   // console.log(add(1, 2, 3)(2)(4), 'test')
-  //   var a = 2;
-  //   function maxPrice(arr) {
-  //     var toal = 0
-  //     var pre = -1
-  //     for (var i = 0; i < arr.length; i++) {
-  //       if (pre !== -1 && arr[i] > pre) {
-  //         toal += arr[i] - pre
-  //       }
-  //       pre = arr[i]
-  //     }
-  //     return toal
-  //   }
-  //   console.log(maxPrice([1,2,3,4,5,6,6,7])) 
-  //   var obj = {
-  //     name: 'cjc'
-  //   }
-
-  //   var obj2 = Object.create(null)
-
-  //   function inherit() {
-  //     if ( p == null) {
-  //       throw TypeError()
-  //     }
-  //     if (Object.create) {
-  //       return Object.create(p)
-  //     }
-  //     var t = typeof p
-  //     if (t !== 'object' && t !== 'function') {
-  //       throw TypeError()
-  //     }
-  //     function f() {
-  //     }
-  //     f.prototype = p
-  //     return new f()
-  //   }
-
-  //   var book = {
-  //   }
-
-  //   Object.defineProperties(book, {
-  //     _year: {
-  //       value: 2004
-  //     },
-  //     edition: {
-  //       value: 1
-  //     },
-  //     year: {
-  //       get: function() {
-  //         return this._year
-  //       },
-  //       set: function(newVlaue) {
-  //         if (newVlaue > 2004) {
-  //           this._year = newVlaue
-  //           this.edition += newVlaue - 2004
-  //         }
-  //         this.edition = 4
-  //       }
-  //     }
-  //   })
-
-  //   book.year = 2006
-
-  // var Event = (function () {
-  //   var clientList = {},
-  //     listen,
-  //     trigger,
-  //     remove;
-  //   listen = function (key, fn) {
-  //     if (!clientList[key]) {
-  //       clientList[key] = [];
-  //     }
-  //     clientList[key].push(fn);
-  //   };
-  //   trigger = function () {
-  //     var key = Array.prototype.shift.call(arguments),
-  //       fns = clientList[key];
-  //     if (!fns || fns.length === 0) {
-  //       return false;
-  //     }
-  //     for (var i = 0, fn; fn = fns[i++];) {
-  //       fn.apply(this, arguments);
-  //     }
-  //   };
-  //   remove = function (key, fn) {
-  //     var fns = clientList[key]; 
-  //     if (!fns) {
-  //       return false;
-  //     }
-  //     if (!fn) {
-  //       fns && (fns.length = 0);
-  //     } else {
-  //       for (var l = fns.length - 1; l >= 0; l--) {
-  //         var _fn = fns[l]; if (_fn === fn) {
-  //           fns.splice(l, 1);
-  //         }
-  //       }
-  //     }
-  //   };
-  //   return {
-  //     listen: listen,
-  //     trigger: trigger,
-  //     remove: remove
-  //   }
-  // })();
-  class Model1 {
-    getData() {
-      // 此处省略获取数据的逻辑
-      let start = new Date().valueOf()
-      try {
-        return [{
-          id: 1,
-          name: 'Niko'
-        }, {
-          id: 2,
-          name: 'Bellic'
-        }]
-      } finally {
-        let end = new Date().valueOf()
-        console.log(`start: ${start} end: ${end} consume: ${end - start}`)
-      }
-      
-    }
-  }
-  const t = '1231321'
-  console.log(new Model1().getData())     // [ { id: 1, name: 'Niko'}, { id: 2, name: 'Bellic' } ]
-  console.log(Model1.prototype.getData()) 
-</script>
-
-
+  </script>
 </html>

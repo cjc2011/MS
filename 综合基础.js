@@ -286,6 +286,13 @@
 // 可以通过实例获取保存在原型中的值 但却不能通过实例对象修改原型中的值 如果在实例中添加一个属性 如果属性名与原型中的相同 那么会屏蔽原型中的属性 读取实例中的值
 // person1.name = "Greg"; console.log(person1.name) //'Greg' 实例属性中有就不必再搜索原型
 // person1.hasOwnProperty() 判断一个属性是存在于实例中还是原型中 如果存在于实例中返回true
+// function isObject(obj) {
+//   return obj && obj.constructor === Object
+// }
+
+// function isArray(arr) {
+//   return arr && arr.constructor === Array
+// }
 
 // 九 js继承 zepto案例
 // var zepto = {}
