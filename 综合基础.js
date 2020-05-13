@@ -19,6 +19,18 @@
 // t() // {a:1, b:2}
 // 闭包的应用场景 common 模块化 函数柯里化 Iterator迭代器 点击事件保持值的引用
 
+// 判断变量类型
+// function isType(type) {
+//   return function(obj) {
+//       return Object.prototype.toString.call(obj) === `[object ${type}]`
+//   }
+// }
+
+// const isArray = isType('Array');
+// const isString = isType('String');
+
+// obj.constructor === Array  obj.constructor === Object
+
 
 // 模块化实现
 // var myModule = (function() {
@@ -289,6 +301,8 @@
 // function isObject(obj) {
 //   return obj && obj.constructor === Object
 // }
+
+// 每个实例化对象都有一个_proto_属性 该属性指向构造函数的prototype 构造函数的prototype对象的constructor对象又指向构造函数自身
 
 // function isArray(arr) {
 //   return arr && arr.constructor === Array
